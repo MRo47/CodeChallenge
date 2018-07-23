@@ -8,21 +8,31 @@ struct interval
   vector<int> vals;
 };
 
-interval createInterval(interval Intvl)
+interval createInterval()
 {
+  interval C;
   cout << "To create an interval" << endl << "Enter start value: ";
   int x = 0,y=0;
   cin >> x;
   cout << "Now enter end value: ";
   cin >> y;
   cout << "Creating Interval" << endl;
-  for(int i=x;i<y;i++)
+  if(y>=x)
   {
-    Intvl.vals.push_back(i);
+    for(int i=x;i<y;i++)
+    {
+      C.vals.push_back(i);
+    }
   }
-  cout << "Created Interval: ";
-  cout << endl;
-  return Intvl;
+  else
+  {
+    for(int i=x;i>y;i--)
+    {
+      C.vals.push_back(i);
+    }
+  }
+  cout << "Created Interval" <<endl;
+  return C;
 }
 
 bool check(interval I,vector<interval> A)
@@ -31,14 +41,17 @@ bool check(interval I,vector<interval> A)
   int Alen = A.size();
   for(int i=0;i<Alen;i++)
   {
-    int res = true;
-    for(int j=0;j<Ilen;j++)
+    if(Ilen == A[i].vals.size())
     {
-      res = res & (I.vals[j]==A[i].vals[j]);
-      cout << res << " "<<I.vals[j]<<"--"<<A[i].vals[j]<<endl;
+      int res = true;
+      for(int j=0;j<Ilen;j++)
+      {
+        res = res & (I.vals[j]==A[i].vals[j]);
+        cout << res << " "<<I.vals[j]<<"--"<<A[i].vals[j]<<endl;
+      }
+      if(res)
+        return true;
     }
-    if(res==true)
-      return res;
   }
   return false;
 }
@@ -46,22 +59,30 @@ bool check(interval I,vector<interval> A)
 
 int main()
 {
-  interval I,B;
   vector<interval> A;
-  I = createInterval(I);
+  interval I = createInterval();
   cout << "Enter new intervals" << endl;
   int cnt=0;
   char c='y';
   while(c!='n')
   {
     cout<< "interval A" << cnt << endl;
-    B = createInterval(B);
+    interval B = createInterval();
     A.push_back(B);
     cout<<"Do you want to add more intervals?y/n: ";
     cin >> c;
     cnt++;
   }
-  cout << "finished entering data" << endl << "Checking if I exists" << endl;
+  cout << "finished entering data" << endl << "A is:" << endl;
+  for(int i=0;i<A.size();i++)
+  {
+    for(int j=0;j<A[i].vals.size();j++)
+    {
+      cout<<A[i].vals[j]<<" ";
+    }
+    cout<<endl;
+  }
+  cout << "Checking if I exists"<<endl;
   bool res = check(I,A);
   if(res==true)
     cout << "I exists in A";
