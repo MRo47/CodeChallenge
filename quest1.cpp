@@ -35,6 +35,7 @@ bool check(interval I,vector<interval> A)
     for(int j=0;j<Ilen;j++)
     {
       res = res & (I.vals[j]==A[i].vals[j]);
+      cout << res << " "<<I.vals[j]<<"--"<<A[i].vals[j]<<endl;
     }
     if(res==true)
       return res;
