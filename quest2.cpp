@@ -42,7 +42,7 @@ class collection
       int count=0;
       for (list<int>::iterator itr=nums.begin(); itr != nums.end(); ++itr) //iterate
       {
-        if(((from<to)&&(*itr>=from)&&(*itr=<to))||((from>to)&&(*itr=<from)&&(*itr>=to))) //counts negative range also AND inclusive of both limits
+        if(((from<to)&&(*itr>=from)&&(*itr<=to))||((from>to)&&(*itr<=from)&&(*itr>=to))) //counts negative range also AND inclusive of both limits
           count++; //increment if true
       }
       cout<<"found "<<count<<" elements"<<endl;
